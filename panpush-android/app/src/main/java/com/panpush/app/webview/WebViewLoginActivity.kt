@@ -512,7 +512,7 @@ class WebViewLoginActivity : ComponentActivity() {
         //   其余站点沿用原界面（避免多一行控件造成拥挤）。
         //   注意这里**不受 spoofFingerprint 控制**了：阿里的伪装是跟着 UA 自动开关的，
         //   默认（安卓 UA）不伪装，但仍需要这两个按钮来换档 / 切验证码登录。
-        if (site == SiteId.ALI || spoofFingerprint) {
+        if (site == SiteId.ALI || site == SiteId.PAN123 || spoofFingerprint) {
             val barRow3 = LinearLayout(this).apply {
                 orientation = LinearLayout.HORIZONTAL
                 gravity = android.view.Gravity.CENTER_VERTICAL

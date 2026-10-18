@@ -256,16 +256,23 @@ object SiteProfile {
             // ✅ 按 `webview-login-3` 文档开 WebView 登录：**桌面 UA**（手机 UA 会推 App）。
             //    但**首选仍是 root**：123 解析器调的是 App API，而 WebView 拿到的是网页 token
             //    （platform 不同），未必通用 —— 见 `login-vs-root` §3/§5。
-            webLoginUrl = "https://www.123pan.com/",
+            // ⚠️ 必须用 **/login**：首页 `www.123pan.com/` 是营销页，
+            //    登录入口藏在右上角，WebView 里很容易找不到 → 表现为「登录有问题」。
+            webLoginUrl = "https://www.123pan.com/login",
             externalUrl = "https://www.123pan.com/",
             checkHost = "www.123pan.com",
             checkCookie = "_c_WBKFRo",
             webViewUseful = true,
             tokenSource = TokenSource.ROOT_APP,
             localSource = "123 云盘 APP 的 shared_prefs/login_user.xml → userToken（明文，兜底读 app_flutter/logs）",
-            // 与所有站点一致：**默认 Windows 桌面**（安卓 UA 实测没用）
-            uaMode = UaMode.DESKTOP,
-            wideViewport = true
+            // ★ 123 用 **ANDROID_CHROME**（不是 Windows 桌面，也不是裸 WebView）：
+            //   真机现象「登录显示验证码失效」= UA 与 Client Hints 自相矛盾的典型症状
+            //   （声明 Windows，但 navigator.platform / sec-ch-ua-platform 都是 Android）。
+            //   ANDROID_CHROME 是「真机同款 Chrome，但去掉 `wv` 标记」——
+            //   既与 CH 一致，又不像裸 WebView 那样容易被推去「下载 App」。
+            //   界面也给了 UA 切换按钮，可现场对比桌面 UA 的效果。
+            uaMode = UaMode.ANDROID_CHROME,
+            wideViewport = false
         )
 
         SiteId.ALI -> Profile(
