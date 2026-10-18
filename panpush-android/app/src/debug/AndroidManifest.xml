@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  仅 debug 构建合并进来的 Manifest（AGP 的 src/debug/AndroidManifest.xml 约定）。
+  release 包**完全不包含**下面这个 receiver 与 com.panpush.app.debug 包。
+
+  用途：让 adb 能触发与界面按钮等价的凭据读取路径，做验收回归：
+      adb shell am broadcast -a com.panpush.app.DEBUG_EXTRACT -p com.panpush.app
+      adb logcat -s PanPushDebug:I
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+
+        <receiver
+            android:name="com.panpush.app.debug.DebugProbeReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.panpush.app.DEBUG_EXTRACT" />
+                <action android:name="com.panpush.app.DEBUG_WEBVIEW" />
+                <action android:name="com.panpush.app.DEBUG_WEBCRED" />
+                <action android:name="com.panpush.app.DEBUG_XLCHECK" />
+                <action android:name="com.panpush.app.DEBUG_LANZOU" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

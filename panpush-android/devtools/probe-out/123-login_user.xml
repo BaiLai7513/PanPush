@@ -1,0 +1,11 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="isAgreeAgreementDialog" value="true" />
+    <string name="userToken">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3OTE2NzQ3OTQsImlkIjoxODU0Mzk4NDYzLCJ2IjowLCJtYWlsIjoiIiwidXNlcm5hbWUiOiIxOTI5OTM5MDg1OSIsIm5pY2tuYW1lIjoiWFlYWSIsInN1cHBlciI6ZmFsc2UsImlzVG91cmlzdCI6ZmFsc2UsImlzT2F1dGgyTG9naW4iOmZhbHNlLCJhcHBOYW1lIjoiIiwibG9naW5fdHlwZSI6MywicGxhdGZvcm0iOjMsImRldmljZUlkIjoi5LiA5YqgIEFjZSA1IFBybyDlm73ooYzniYgoOilkYWMzNWMwMDU5OGI1ZGI1NTgzYjVkNmVjNzRmNTRlMCg6KVBLUjExMCIsImNsaWVudElQIjoiMjIzLjE2MC4xNzIuMTYzIiwiZGV2aWNlTmFtZSI6Ik9uZVBsdXMiLCJkZXZpY2VNb2RlbCI6IlBLUjExMCIsImRldmljZVR5cGUiOiJQS1IxMTAiLCJyZW1lbWJlciI6MiwiZXhwIjoxNzk5NDUwNzk0fQ.Sa_n8MlfZcWhOaS7X92UOWNtaDF86ShLab5vGHmeVvc</string>
+    <string name="loginType">3</string>
+    <string name="userPhone"></string>
+    <string name="musicPlayModel">repeat</string>
+    <string name="userId">1854398463</string>
+    <string name="isVip">0</string>
+    <string name="isAgreeAgreement">1</string>
+</map>

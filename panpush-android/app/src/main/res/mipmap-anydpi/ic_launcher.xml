@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 备用（API < 26 无自适应图标时使用）：与自适应图标前景同一图形 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#10131A"
+        android:pathData="M0,0h108v108h-108z" />
+    <path
+        android:fillColor="#4C8DFF"
+        android:pathData="M54,30c-9.4,0 -17.3,6.4 -19.3,15.1C28.1,46.2 23,52 23,59c0,7.7 6.3,14 14,14h6v-6h-6c-4.4,0 -8,-3.6 -8,-8s3.6,-8 8,-8h3.4l0.6,-3.3C42.3,41.7 47.7,37 54,37c6.9,0 12.7,5.3 13.8,12.1l0.7,4.2l4.2,-0.6c0.5,-0.1 1,-0.1 1.5,-0.1c4.4,0 8,3.6 8,8s-3.6,8 -8,8h-5v6h5c7.7,0 14,-6.3 14,-14c0,-7.4 -5.8,-13.5 -13.1,-13.9C72.9,36.6 64.2,30 54,30z" />
+    <path
+        android:fillColor="#8FE3B0"
+        android:pathData="M54,50l-11,13h7v13h8V63h7z" />
+</vector>
