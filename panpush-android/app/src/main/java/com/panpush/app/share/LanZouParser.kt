@@ -371,23 +371,14 @@ class LanZouParser(
         val dom = j.optString("dom")
         val path = j.optString("url")
         if (dom.isBlank() || path.isBlank()) throw ParseException("蓝奏未返回直链（dom/url 为空）")
-        // ★★ 直链有两种形态，必须按 `url` 字段的形态选（真机对比得出）：
-        //
-        //  | 形态 | 样子 | 结果 |
-        //  |---|---|---|
-        //  | **经典** `dom + "/" + url` | `h1050.lanosso.com/…/xxx.apk?fn=1.3.4.12.apk` | ✅ 能下（Gopeed 历史成功任务） |
-        //  | **新版** `dom + "/file/" + url` | `slsstm2.dmpdmp.com/file/?<token>` | ❌ 被 WAF 拦成 4.7KB |
-        //
-        // 判据：`url` 里带文件名/查询（`.apk`、`.zip`、`?fn=`）→ 用经典形态；
-        // 只有一串 token → 用新版的 `/file/`。
-        val classic = "$dom/$path"
-        val modern = "$dom/file/$path"
-        val looksLikeFile = path.contains("?fn=") || Regex("\\.[A-Za-z0-9]{2,5}(\\?|$)").containsMatchIn(path)
-        val directUrl = if (looksLikeFile) classic else modern
+        // 直链统一用 `dom + "/file/" + url` —— 这是 `apifile.woozooo.com/ajaxfile.php`
+        // 返回结构的固定拼接方式（页面 JS 就是 `dom_down+"/file/"+date.url`）。
+        // ⚠️ 之前试过按 `url` 里有没有扩展名去猜「经典形态 dom/url」，结果把含 `.` 的
+        //    token 误判成文件名，拼出的 URL 浏览器打不开 —— 已回退，只保留这一种。
+        val directUrl = "$dom/file/$path"
         android.util.Log.i(
             "PanPushLanzou",
-            "直链形态=" + (if (looksLikeFile) "经典(dom/url)" else "新版(dom/file/url)") +
-                " host=" + Regex("^(https?://[^/]+)").find(directUrl)?.groupValues?.get(1)
+            "直链 host=" + Regex("^(https?://[^/]+)").find(directUrl)?.groupValues?.get(1)
         )
         // ★★ 文件名要取**接口返回的 `inf`**：
         //    新版蓝奏（`wwbsm.lanzoub.com` 这类）分享页的 `<title>` 与
