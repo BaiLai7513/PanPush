@@ -325,7 +325,11 @@ fun ParseScreen(vm: MainViewModel) {
             //   若还没取过直链（`downloads` 为空），点它会先自动取直链再打开浏览器，
             //   所以「只解析、不推送」也能一键用浏览器下载。
             val dlAll = vm.downloads.collectAsState().value
-            if (selected.isNotEmpty()) {
+            // ★ 夸克**不给浏览器入口**：它的直链必须带专用 UA（quark-cloud-drive/x.x.x）
+            //   + Referer + `__puus` Cookie 才可访问；外部浏览器裸开必然「无法访问该网站」。
+            //   夸克请用「取直链并推送 Gopeed」（Gopeed 会把请求头写进任务）。
+            //   蓝奏则相反 —— 它的 CDN 有 JS 验证页，只有浏览器能过。
+            if (selected.isNotEmpty() && site != com.panpush.app.core.SiteId.QUARK) {
                 OutlinedButton(
                     onClick = {
                         val u = dlAll.firstOrNull()?.url
