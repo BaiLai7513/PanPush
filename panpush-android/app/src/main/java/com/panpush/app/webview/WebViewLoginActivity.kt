@@ -865,10 +865,10 @@ class WebViewLoginActivity : ComponentActivity() {
         val header = currentCookieHeader()
         if (header.isBlank()) return
         if (!header.contains(checkCookie, ignoreCase = true)) return
-        gotToken = true
+        // ★ 按用户要求：**不自动保存/不自动退出**。
+        //   只记下抓到的值并提示，必须由用户点「完成并保存」才提交并关闭。
         lastCookieHeader = header
-        statusView.text = "已抓到 $checkCookie，正在保存…"
-        finishWithResult()
+        statusView.text = "✅ 已检测到 $checkCookie → 点右上角「完成并保存」"
     }
 
     /**
@@ -899,13 +899,16 @@ class WebViewLoginActivity : ComponentActivity() {
         return cur != lsBaselineToken
     }
 
-    /** 抓到 localStorage 里的令牌 → 收尾 */
+    /**
+     * 抓到 localStorage 里的令牌 → **只提示，不收尾**。
+     *
+     * 用户明确要求：应用内登录必须**手动点「完成并保存」**才提交并退出，
+     * 不能自动保存/自动关闭（否则用户还没看清页面就闪退，也容易误存旧令牌）。
+     */
     private fun tryGrabLsTokenOnce() {
-        if (gotToken) return
-        if (!hasNewLsToken()) return
-        gotToken = true
-        statusView.text = "已抓到 ${site.label} token（localStorage），正在保存…"
-        finishWithResult()
+        if (hasNewLsToken()) {
+            statusView.text = "✅ 已检测到 ${site.label} token → 点右上角「完成并保存」"
+        }
     }
 
     /** 兼容旧名（阿里） */
