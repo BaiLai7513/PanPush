@@ -325,11 +325,23 @@ fun ParseScreen(vm: MainViewModel) {
             //   若还没取过直链（`downloads` 为空），点它会先自动取直链再打开浏览器，
             //   所以「只解析、不推送」也能一键用浏览器下载。
             val dlAll = vm.downloads.collectAsState().value
-            // ★ 夸克**不给浏览器入口**：它的直链必须带专用 UA（quark-cloud-drive/x.x.x）
-            //   + Referer + `__puus` Cookie 才可访问；外部浏览器裸开必然「无法访问该网站」。
-            //   夸克请用「取直链并推送 Gopeed」（Gopeed 会把请求头写进任务）。
-            //   蓝奏则相反 —— 它的 CDN 有 JS 验证页，只有浏览器能过。
-            if (selected.isNotEmpty() && site != com.panpush.app.core.SiteId.QUARK) {
+            // ★ 哪些站点**不给浏览器入口**
+            //
+            // 这些站点的直链不是「公开可访问 URL」，必须带专用 UA / Referer / Cookie，
+            // 外部浏览器裸开必然「无法访问该网站」—— 给了按钮只会让人误以为功能坏了。
+            // 请用「取直链并推送 Gopeed」（Gopeed 会把请求头写进任务）。
+            //
+            // | 站点 | 裸开失败原因（真机实测） |
+            // |---|---|
+            // | 夸克 | 需 `quark-cloud-drive/x.x.x` UA + `Referer: pan.quark.cn` + `__puus` |
+            // | 百度 | 需 `BDUSS` Cookie + `pan.baidu.com` Referer |
+            //
+            // 蓝奏则**相反**：它的 CDN 有 JS 验证页，只有浏览器能过 —— 必须给入口。
+            val noBrowserSites = setOf(
+                com.panpush.app.core.SiteId.QUARK,
+                com.panpush.app.core.SiteId.BAIDU
+            )
+            if (selected.isNotEmpty() && site !in noBrowserSites) {
                 OutlinedButton(
                     onClick = {
                         val u = dlAll.firstOrNull()?.url
