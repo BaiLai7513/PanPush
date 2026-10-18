@@ -14,8 +14,8 @@ android {
         applicationId = "com.panpush.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 10
-        versionName = "1.3.3"
+        versionCode = 11
+        versionName = "1.3.4"
     }
 
     // 只出 arm64-v8a 的包（arm64 机器码）；本工程自身没有 native 代码，

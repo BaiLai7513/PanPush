@@ -2,6 +2,20 @@
 
 本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [1.3.4] - 2026-10-18
+
+### 修复
+- **123 云盘「登录显示验证码失效」**
+  - 根因：登录页 UA 声明 Windows 桌面，但 `navigator.platform` / `sec-ch-ua-platform` 实际是 Android，
+    指纹自相矛盾被风控判定为环境异常（与阿里「人机校验不通过」同一类问题）
+  - 改用 **ANDROID_CHROME** UA（真机同款 Chrome、去掉 `wv` 标记）：与 Client Hints 一致，
+    又不像裸 WebView 那样容易被推去「下载 App」
+  - 关闭 `wideViewport`（桌面宽视口在手机上会缩放，操作困难）
+- **123 云盘登录页地址**：`www.123pan.com/`（营销首页）→ `www.123pan.com/login`（真正的登录表单）
+- **登录页 UA 切换按钮对 123 开放**：可现场在 `ANDROID_CHROME / DESKTOP / DESKTOP_LINUX / MOBILE` 间切换对比
+
+> 注：123 的**网页 token 与 App token 不是同一套**（App 侧带 `platform=3`）。
+> 即使网页登录成功，解析仍可能不认 —— 有 root 时请优先用「root 直读」。
 ## [1.3.3] - 2026-10-18
 
 ### 变更
