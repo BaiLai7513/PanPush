@@ -33,3 +33,14 @@ Thumbs.db
 # ---- 内部资料（含真实分享链接/设备信息，不公开）----
 panpush-android/真机根因修复记录.md
 panpush-android/移植实现说明.md
+
+# ---- 设计参考素材 / 压缩包（非本项目代码，不入库）----
+*.zip
+ali-lushuo-对比/
+aliyun-login/
+applist-scan/
+login-vs-root/
+panpush-xport/
+quark-puus/
+webview-login-3/
+xunlei-file-test/

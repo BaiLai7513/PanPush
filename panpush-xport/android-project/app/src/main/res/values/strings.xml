@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">PanPush WebView Kit</string>
-    <string name="btn_login">① 应用内 WebView 登录</string>
-    <string name="btn_read">② 读取 Cookie（读自己库，无需 root）</string>
-    <string name="btn_json">③ 导出 JSON（Cookie + localStorage）</string>
-    <string name="btn_clear">清空输出</string>
-</resources>
