@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 说明：
+         - usesCleartextTraffic=false：登录务必走 HTTPS，避免 SameSite=None; Secure Cookie 被丢。
+         - allowBackup=false：避免 WebView 数据被备份/迁移导致登录态异常。
+    -->
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="false"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- configChanges：旋转/键盘变化不重建，避免 WebView 会话被打断 -->
+        <activity
+            android:name=".webview.WebViewLoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+    </application>
+
+</manifest>

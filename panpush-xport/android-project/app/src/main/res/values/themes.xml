@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 直接用 AppCompat 自带主题即可，避免额外定义依赖 -->
+    <style name="Theme.AppCompat.DayNight.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>
